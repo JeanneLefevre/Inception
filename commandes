@@ -1,0 +1,25 @@
+su
+
+apt-get update
+apt-get install -y 
+{
+iproute2
+curl
+make
+docker.io
+docker-compose
+}
+
+docker exec-it wordpress bash
+docker exec-it mariadb bash
+docker exec -it nginx sh
+
+docker exec -it wordpress
+ss -tulnp
+
+docker exec -it nginx sh
+nc -vz wordpress 9000
+
+docker volume ls
+
+
