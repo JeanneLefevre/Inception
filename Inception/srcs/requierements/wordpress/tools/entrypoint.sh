@@ -59,6 +59,6 @@ if wp theme is-installed twentytwentyfour --path=/var/www/html --allow-root; the
 else
     wp theme install twentytwentyfour --activate --path=/var/www/html --allow-root
 fi
-echo $path
+
 echo "Starting PHP-FPM..."
 exec php-fpm8.2 -F

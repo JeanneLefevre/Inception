@@ -1,10 +1,14 @@
 NAME := Inception
+
 COMPOSE_FILE := srcs/docker-compose.yml
 SRC_DIR := srcs
 SECRETS_DIR := secrets
+
 DC := docker-compose -f $(COMPOSE_FILE)
+
 MARIADB_DATA_DIR := /home/jealefev/data/mariadb
 WORDPRESS_DATA_DIR := /home/jealefev/data/wordpress
+
 
 all: mkdir_dirs up
 
@@ -16,14 +20,14 @@ mkdir_dirs:
 up:
 	@echo "Lancement des containers..."
 	$(DC) up -d --build
-
+	
 down:
 	@echo "Arrêt et suppression des containers..."
 	$(DC) down
-
+	
 rebuild: down up
 	@echo "Reconstruction des containers..."
-
+	
 logs:
 	@echo "Affichage des logs..."
 	$(DC) logs -f
@@ -60,7 +64,7 @@ dv:
 	@echo "Arrêt et suppression des containers et volumes..."
 	$(DC) down -v --remove-orphans
 
-re: down dv prune mkdir_dirs up
+re: down dv prune up
 
 clean: down dv prune
 
@@ -74,8 +78,3 @@ clean_data: clean
 	@echo "Suppression complète du dossier data..."
 	rm -rf /home/jealefev/data
 
-basic: 
-	rm -rf /home/jealefev/data
-	$(MAKE) re
-
-.PHONY: all mkdir_dirs up down rebuild logs pull exec migrate build prune ps config dv re clean
