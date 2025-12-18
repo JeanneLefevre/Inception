@@ -1,9 +1,9 @@
-	FROM mariadb:11.3
+FROM mariadb:11.3
 
-ENV MARIADB_ROOT_PASSWORD=secret \
-    MARIADB_DATABASE=wordpress \
-    MARIADB_USER=wpuser \
-    MARIADB_PASSWORD=wppass
+ENV MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD} \
+    MARIADB_DATABASE=${MARIADB_DATABASE} \
+    MARIADB_USER=${MARIADB_USER} \
+    MARIADB_PASSWORD=${MARIADB_PASSWORD}
 
 RUN apt-get update && apt-get install -y mariadb-server mariadb-client
 

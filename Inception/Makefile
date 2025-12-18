@@ -67,14 +67,3 @@ dv:
 re: down dv prune up
 
 clean: down dv prune
-
-rillettes: clean
-	@echo "Copie du dossier data de sauvegarde..."
-	rm -rf /home/jealefev/data
-	cp -r ../data /home/jealefev/
-	$(MAKE) all
-
-clean_data: clean
-	@echo "Suppression complète du dossier data..."
-	rm -rf /home/jealefev/data
-
