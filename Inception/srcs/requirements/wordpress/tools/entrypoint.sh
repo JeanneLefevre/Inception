@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-# Wait for MariaDB with netcat instead of mysql-client
 echo "Waiting for MariaDB..."
 until nc -z mariadb 3306; do
     echo "MariaDB is not ready yet..."
@@ -9,7 +8,6 @@ until nc -z mariadb 3306; do
 done
 echo "MariaDB is ready!"
 
-# Télécharger WordPress si pas encore présent
 if [ ! -f /var/www/html/wp-config.php ]; then
     echo "Downloading WordPress..."
     wp core download --path=/var/www/html --allow-root --force
@@ -32,7 +30,7 @@ if ! wp core is-installed --path=/var/www/html --allow-root 2>/dev/null; then
 
     wp core install --path=/var/www/html \
         --url=$WORDPRESS_SITE_URL \
-        --title="Le site wordpress de Jealefev" \
+        --title="$TITLE" \
         --admin_user=$WORDPRESS_ADMIN_USER \
         --admin_password=$WORDPRESS_ADMIN_PASSWORD \
         --admin_email=$WORDPRESS_ADMIN_EMAIL \
@@ -45,20 +43,13 @@ if ! wp core is-installed --path=/var/www/html --allow-root 2>/dev/null; then
         --path=/var/www/html \
         --allow-root
     
-    wp user create ${WORDPRESS_USER2} ${WORDPRESS_USER2_EMAIL} \
-    --role=author \
-    --user_pass=${WORDPRESS_USER2_PASSWORD} \
-    --path=/var/www/html \
-    --allow-root
-    
 fi
 
-# Installer et activer le thème
 if wp theme is-installed twentytwentyfour --path=/var/www/html --allow-root; then
     wp theme activate twentytwentyfour --path=/var/www/html --allow-root
 else
     wp theme install twentytwentyfour --activate --path=/var/www/html --allow-root
 fi
-
+echo $path
 echo "Starting PHP-FPM..."
 exec php-fpm8.2 -F

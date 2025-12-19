@@ -22,4 +22,7 @@ nc -vz wordpress 9000
 
 docker volume ls
 
-
+docker exec -it mariadb sh
+# mariadb -u root -p
+USE wordpress_db
+SELECT ID, user_login FROM wp_users

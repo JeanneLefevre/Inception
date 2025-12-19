@@ -15,6 +15,12 @@ RUN curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh
 
 RUN mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html
 
+RUN curl -o /tmp/wp.zip https://wordpress.org/latest.zip \
+    && unzip /tmp/wp.zip -d /var/www/html \
+    && mv /var/www/html/wordpress/* /var/www/html \
+    && rm -rf /tmp/wp.zip /var/www/html/wordpress \
+    && chown -R www-data:www-data /var/www/html
+
 COPY tools/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
