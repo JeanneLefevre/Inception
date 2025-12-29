@@ -39,7 +39,7 @@ services:
       - wpnet
 
   wordpress:
-    build: ./requierements/wordpress
+    build: ./requirements/wordpress
     container_name: wordpress
     restart: always
     env_file:
@@ -59,7 +59,7 @@ services:
       - wpnet
 
   nginx:
-    build: ./requierements/nginx
+    build: ./requirements/nginx
     container_name: nginx
     restart: always
     ports:

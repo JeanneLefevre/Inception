@@ -63,6 +63,7 @@ dv:
 re: down dv prune mkdir_dirs up
 
 clean: down dv prune
+	rm -rf /home/jealefev/data
 
 rillettes: clean
 	@echo "Copie du dossier data de sauvegarde..."
