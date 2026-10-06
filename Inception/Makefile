@@ -3,14 +3,14 @@ COMPOSE_FILE := srcs/docker-compose.yml
 SRC_DIR := srcs
 SECRETS_DIR := secrets
 DC := docker-compose -f $(COMPOSE_FILE)
-MARIADB_DATA_DIR := /home/jealefev/data/mariadb
-WORDPRESS_DATA_DIR := /home/jealefev/data/wordpress
+MARIADB_DATA_DIR := ~/data/mariadb
+WORDPRESS_DATA_DIR := ~/data/wordpress
 
 all: mkdir_dirs up
 
 mkdir_dirs:
 	@echo "Création des répertoires nécessaires..."
-	@mkdir -p /home/jealefev/data
+	@mkdir -p ~/data
 	@mkdir -p $(MARIADB_DATA_DIR) $(WORDPRESS_DATA_DIR)
 
 up:
@@ -63,20 +63,20 @@ dv:
 re: down dv prune mkdir_dirs up
 
 clean: down dv prune
-	rm -rf /home/jealefev/data
+	rm -rf ~/data
 
 rillettes: clean
 	@echo "Copie du dossier data de sauvegarde..."
-	rm -rf /home/jealefev/data
-	cp -r ../data /home/jealefev/
+	rm -rf ~/data
+	cp -r ../data ~/
 	$(MAKE) all
 
 clean_data: clean
 	@echo "Suppression complète du dossier data..."
-	rm -rf /home/jealefev/data
+	rm -rf ~/data
 
 basic: 
-	rm -rf /home/jealefev/data
+	rm -rf ~/data
 	$(MAKE) re
 
 .PHONY: all mkdir_dirs up down rebuild logs pull exec migrate build prune ps config dv re clean
